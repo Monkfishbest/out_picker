@@ -1,8 +1,9 @@
 import React from 'react';
 import MissplayInfo from '../components/missplayInfo';
+import SaveGame from '../components/saveGame'
 import APIConstantsService from '../services/APIConstantsService';
 
-const GameListItem = ({game}) => {
+const GameListItem = ({game, postGame}) => {
     
     return (<>
         <li key={game.match_id}>
@@ -12,7 +13,7 @@ const GameListItem = ({game}) => {
         <p>Hero: {APIConstantsService.getHeroName(game.hero_id)}</p>
         <p> Did you win? : {APIConstantsService.didWinMatch(game)}</p>
         </li>
-        {!game.hasOwnProperty('missPlays') ? null : <MissplayInfo missplays={game.missPlays} />}
+        {game.hasOwnProperty('missPlays') ? <MissplayInfo missplays={game.missPlays} /> : <SaveGame postGame={postGame}/> }
         </>
 
     )

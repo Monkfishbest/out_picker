@@ -7,9 +7,10 @@ const RecentGamesContainer = ({recentGames, postGame}) => {
     <p>
         This is some info aobut the recent games, this should be the last 20 matches.
     </p>
-        <GameListContainer games={recentGames}/>
+        <GameListContainer games={recentGames} postGame={postGame}/>
     </>
 
 }
+// Note that we should add some more content to this page. 
 
 export default RecentGamesContainer; 
