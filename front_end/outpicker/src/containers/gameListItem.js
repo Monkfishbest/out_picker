@@ -3,7 +3,7 @@ import MissplayInfo from '../components/missplayInfo';
 import SaveGame from '../components/saveGame'
 import APIConstantsService from '../services/APIConstantsService';
 
-const GameListItem = ({game, postGame}) => {
+const GameListItem = ({game, databaseActions}) => {
     
     return (<>
         <li key={game.match_id}>
@@ -13,7 +13,7 @@ const GameListItem = ({game, postGame}) => {
         <p>Hero: {APIConstantsService.getHeroName(game.hero_id)}</p>
         <p> Did you win? : {APIConstantsService.didWinMatch(game)}</p>
         </li>
-        {game.hasOwnProperty('missPlays') ? <MissplayInfo missplays={game.missPlays} /> : <SaveGame postGame={postGame} game={game}/>}
+        {game.hasOwnProperty('missPlays') ? <MissplayInfo missplays={game.missPlays} /> : <SaveGame databaseActions={databaseActions} game={game}/>}
         </>
 
     )

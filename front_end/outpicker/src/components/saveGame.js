@@ -1,10 +1,10 @@
 import React from 'react'; 
 
-const saveGame = ({game, postGame}) => {
+const saveGame = ({game, databaseActions}) => {
     
    const handleClick= (event) => {
         event.preventDefault()
-        postGame(game)
+        databaseActions.postGame(game)
    }
 
     return (
