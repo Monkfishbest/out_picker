@@ -13,7 +13,7 @@ const GameListItem = ({game, postGame}) => {
         <p>Hero: {APIConstantsService.getHeroName(game.hero_id)}</p>
         <p> Did you win? : {APIConstantsService.didWinMatch(game)}</p>
         </li>
-        {game.hasOwnProperty('missPlays') ? <MissplayInfo missplays={game.missPlays} /> : <SaveGame postGame={postGame}/> }
+        {game.hasOwnProperty('missPlays') ? <MissplayInfo missplays={game.missPlays} /> : <SaveGame postGame={postGame} game={game}/>}
         </>
 
     )

@@ -2,7 +2,7 @@ import React from 'react';
 import GameListItem from './gameListItem';
 
 
-const GameListContainer = ({games, postGame}) => {
+const GameListContainer = ({games, postGame, handleCLickSave}) => {
 
     
     return(

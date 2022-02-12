@@ -1,19 +1,22 @@
 import React from 'react'; 
-/*
-Button save styling adapted from 
-https://codepen.io/antronic/pen/NpQYRB 
-credit goes to Jirachai Chansivanon 
-*/
 
-
-const saveGame = ({game, postGame }) => {
+const saveGame = ({game, postGame}) => {
     
+   const handleClick= (event) => {
+        event.preventDefault()
+        postGame(game)
+   }
+
     return (
-            <button onClick={postGame}> press me </button>
+    <>
+    <p>this is the save game componenet </p>
+          <button onClick={handleClick}> press me </button>
+    </>
     )
 }
     
 
 export default saveGame;
 
+// Can we define the handle click function in a parent componenet?  
 // This will have the functionaily to save/add comments to a game 

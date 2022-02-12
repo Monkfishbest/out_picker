@@ -3,15 +3,13 @@ import About from '../components/about';
 import DBService from '../services/DBService';
 
 import OpenDotaAPIGamesService from '../services/OpenDotaAPIService';
-import RecentGamesContainer from './recentGamesContainer';
-import SavedGameContainer  from './savedGamesContainer';
+import GamesContainer from './gamesContainer';
 
 
 const OutpickerContainer = () => {
 
     const [recentGames, setRecentGames] = useState(null)
-    const [savedGames, setSavedGames] = useState(null)
-
+    const [savedGames, setSavedGames] = useState([])
     
     // Loads recent games and saved games from API and DB. 
     useEffect( () => {
@@ -28,17 +26,19 @@ const OutpickerContainer = () => {
         
     }, [])
 
-
     const saveGame = (game) => {
         DBService.saveGame(game)
         .then(savedGame => setSavedGames([...savedGames, savedGame]))
+        setSavedGames([...savedGames, game])
     }
+
 
     return( 
     <>
         <About/>
-        {!recentGames ? null : <RecentGamesContainer recentGames={recentGames} postGame={saveGame} />} 
-        {!savedGames ? null : <SavedGameContainer savedGames={savedGames} />}
+        {!recentGames ? null : <GamesContainer recentGames={recentGames} postGame={saveGame}/>} 
+        {!savedGames ? null : <GamesContainer savedGames={savedGames} />}
+
     </>
     )
 }
