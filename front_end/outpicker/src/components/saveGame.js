@@ -1,5 +1,10 @@
 import React from 'react'; 
-//https://medium.com/@paulryan17/create-a-kickass-save-button-in-react-2e0fa725f0ba
+/*
+Button save styling adapted from 
+https://codepen.io/antronic/pen/NpQYRB 
+credit goes to Jirachai Chansivanon 
+*/
+
 
 const saveGame = ({game, postGame }) => {
     
