@@ -8,36 +8,49 @@ import GamesContainer from './gamesContainer';
 
 const OutpickerContainer = () => {
 
-    const [recentGames, setRecentGames] = useState(null)
+    const [recentGames, setRecentGames] = useState([])
     const [savedGames, setSavedGames] = useState([])
     
     // Loads recent games and saved games from API and DB. 
     useEffect( () => {
 
-        // try {
-        //     OpenDotaAPIGamesService.getRecentMatches()     
-        //     .then(games => setRecentGames(games))    
-        // } catch (error) {
-        //     return new Error(error.printStackTrace())
-        // }
+        try {
+            OpenDotaAPIGamesService.getRecentMatches()     
+            .then(games => setRecentGames(games))    
+        } catch (error) {
+            return new Error(error.printStackTrace())
+        }
         
         DBService.getSavedGames()
         .then(savedGames => setSavedGames(savedGames))
         
     }, [])
 
-    const saveGame = (game) => {
-        DBService.saveGame(game)
-        .then(savedGame => setSavedGames([...savedGames, savedGame]))
-        setSavedGames([...savedGames, game])
-    }
 
+
+    const databaseActions = {
+
+        postGame(game){
+            DBService.saveGame(game)
+            .then(savedGame => setSavedGames([...savedGames, savedGame]))
+        },
+
+        postMissplay(missplay){
+            DBService.saveMissplay(missplay)
+            .then(missPlay =>  {
+                const indexToUpdate = savedGames.findIndex(game => {game.id = missPlay.game.id})
+                const copyOfSavedGames = savedGames;
+                copyOfSavedGames[indexToUpdate].missPlays.push(missPlay);
+                setSavedGames[copyOfSavedGames];
+            })
+        }
+    }
 
     return( 
     <>
         <About/>
-        {!recentGames ? null : <GamesContainer recentGames={recentGames} postGame={saveGame}/>} 
-        {!savedGames ? null : <GamesContainer savedGames={savedGames} />}
+        {!recentGames ? null : <GamesContainer games={recentGames} databaseActions={databaseActions}/>} 
+        {!savedGames ? null : <GamesContainer games={savedGames} databaseActions={databaseActions} />}
 
     </>
     )

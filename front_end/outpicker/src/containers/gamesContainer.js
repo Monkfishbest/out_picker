@@ -5,7 +5,7 @@ const GamesContainer = ({games, databaseActions}) => {
 
     return <>
     <p>
-        This is some info aobut the recent games, this should be the last 20 matches.
+            this is the games container 
     </p>
         <GameListContainer games={games} databaseActions={databaseActions} />
     </>

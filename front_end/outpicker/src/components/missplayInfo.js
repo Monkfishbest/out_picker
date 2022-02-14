@@ -1,13 +1,17 @@
 import React from 'react'; 
 import MissPlayItem from './missPlayItem';
+import SaveMissplay from './savemissPlay';
 
-const MissplayInfo = ({missplays}) => {
+const MissplayInfo = ({game, databaseActions}) => {
 
-   
+
     return (
-    <ul>
-    {missplays.map(missplay => <MissPlayItem missplay={missplay}/>)}
-    </ul>
+    <>
+        <ul>
+            {game.missPlays? game.missPlays.map(missplay => <MissPlayItem missplay={missplay}/>) : null}
+        </ul>
+        <SaveMissplay game={game} postMissplay={databaseActions.postMissplay}/>
+    </>
     )
 
 }
