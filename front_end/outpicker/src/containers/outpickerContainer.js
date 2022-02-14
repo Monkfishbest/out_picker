@@ -20,9 +20,9 @@ const OutpickerContainer = () => {
         } catch (error) {
             return new Error(error.printStackTrace())
         }
-        
         DBService.getSavedGames()
         .then(savedGames => setSavedGames(savedGames))
+        .catch*
         
     }, [])
 
@@ -38,10 +38,10 @@ const OutpickerContainer = () => {
         postMissplay(missplay){
             DBService.saveMissplay(missplay)
             .then(missPlay =>  {
-                const indexToUpdate = savedGames.findIndex(game => {game.id = missPlay.game.id})
+                const indexToUpdate = savedGames.findIndex(game => game.id == missPlay.game.id)
                 const copyOfSavedGames = savedGames;
                 copyOfSavedGames[indexToUpdate].missPlays.push(missPlay);
-                setSavedGames[copyOfSavedGames];
+                setSavedGames(copyOfSavedGames);
             })
         }
     }
