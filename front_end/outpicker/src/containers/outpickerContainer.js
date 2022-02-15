@@ -10,6 +10,7 @@ const OutpickerContainer = () => {
 
     const [recentGames, setRecentGames] = useState([])
     const [savedGames, setSavedGames] = useState([])
+    const [savedMissplay, setSavedMissplay] = useState('')
     
     // Loads recent games and saved games from API and DB. 
     useEffect( () => {
@@ -22,9 +23,10 @@ const OutpickerContainer = () => {
         }
         DBService.getSavedGames()
         .then(savedGames => setSavedGames(savedGames))
-        .catch*
         
     }, [])
+
+    
 
 
 
@@ -32,17 +34,26 @@ const OutpickerContainer = () => {
 
         postGame(game){
             DBService.saveGame(game)
-            .then(savedGame => setSavedGames([...savedGames, savedGame]))
+            .then(savedGame => {
+                savedGame.missPlays = []
+                setSavedGames([...savedGames, savedGame])})
         },
 
         postMissplay(missplay){
             DBService.saveMissplay(missplay)
-            .then(missPlay =>  {
-                const indexToUpdate = savedGames.findIndex(game => game.id == missPlay.game.id)
-                const copyOfSavedGames = savedGames;
-                copyOfSavedGames[indexToUpdate].missPlays.push(missPlay);
-                setSavedGames(copyOfSavedGames);
-            })
+            .then(missPlay => setSavedMissplay(missPlay))
+
+            const copyOfSavedGames = savedGames
+            console.log(copyOfSavedGames)
+            const indexToUpdate = copyOfSavedGames.findIndex(game => game.id === savedMissplay.game.id)
+            copyOfSavedGames[indexToUpdate].missPlays.push(savedMissplay)
+        },
+
+        deleteGame(game){
+            DBService.deleteGame(game.id)
+            .then(res => console.log(res))
+            
+            setSavedGames(savedGames.filter(savedGame => savedGame.id !== game.id))
         }
     }
 
@@ -51,7 +62,6 @@ const OutpickerContainer = () => {
         <About/>
         {!recentGames ? null : <GamesContainer games={recentGames} databaseActions={databaseActions}/>} 
         {!savedGames ? null : <GamesContainer games={savedGames} databaseActions={databaseActions} />}
-
     </>
     )
 }
@@ -59,3 +69,6 @@ const OutpickerContainer = () => {
 // condition ? expr_if_true : expr_if_false
 
 export default OutpickerContainer; 
+
+
+

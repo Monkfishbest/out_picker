@@ -33,7 +33,7 @@ public class GameController {
     }
 
     @DeleteMapping(value = "/games/{id}")
-    public ResponseEntity<Long> deleteGame(@RequestParam Long id){
+    public ResponseEntity<Long> deleteGame(@PathVariable Long id){
         gameRepository.deleteById(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }

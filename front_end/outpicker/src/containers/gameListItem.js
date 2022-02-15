@@ -5,7 +5,8 @@ import APIConstantsService from '../services/APIConstantsService';
 
 const GameListItem = ({game, databaseActions}) => {
     
-    return (<>
+    return (
+    <>
         <li key={game.match_id}>
         <p>Kills:{game.kills}</p>
         <p>Deaths:{game.deaths}</p>
@@ -13,7 +14,8 @@ const GameListItem = ({game, databaseActions}) => {
         <p>Hero: {APIConstantsService.getHeroName(game.hero_id)}</p>
         <p> Did you win? : {APIConstantsService.didWinMatch(game)}</p>
         </li>
-        {game.hasOwnProperty('missPlays') ? <MissplayInfo game={game} databaseActions={databaseActions}/> : <SaveGame databaseActions={databaseActions} game={game}/>}        </>
+        {game.hasOwnProperty('missPlays') ? <MissplayInfo game={game} databaseActions={databaseActions}/> : <SaveGame databaseActions={databaseActions} game={game}/>}
+    </>
 
     )
 };

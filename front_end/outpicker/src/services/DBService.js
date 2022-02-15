@@ -5,6 +5,7 @@ const DBService = {
         .then(res => res.json())
     },
 
+
     saveGame(game){
         return fetch('http://localhost:8080/games', {
             method: 'POST',
@@ -25,6 +26,15 @@ const DBService = {
             }
         })
         .then(res => res.json())
+    },
+
+    deleteGame(id){
+        return fetch(`http://localhost:8080/games/${id}`, {
+            method: 'DELETE',
+            headers:{
+                'Content-Type':'application/json'
+            }
+        })
     }
 
 }

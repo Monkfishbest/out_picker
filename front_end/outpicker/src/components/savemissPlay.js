@@ -22,12 +22,10 @@ const SaveMissplay = ({postMissplay, game}) => {
           "game" : { "id" : game.id}
         
       }
-
       postMissplay(missPlayToUpdate); 
-
       // TODO: some input validation
-
     }
+
 
   const handleMissplayTypeChange = (event) => {
     setMissplayType(event.target.value);
@@ -100,6 +98,7 @@ const SaveMissplay = ({postMissplay, game}) => {
           />
       </form>
     </>
+    
   )
 }
 

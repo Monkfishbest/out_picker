@@ -5,12 +5,17 @@ import SaveMissplay from './savemissPlay';
 const MissplayInfo = ({game, databaseActions}) => {
 
 
+        const handleDelete= () => {
+        databaseActions.deleteGame(game)
+    }
+
     return (
     <>
         <ul>
             {game.missPlays? game.missPlays.map(missplay => <MissPlayItem missplay={missplay}/>) : null}
         </ul>
-        <SaveMissplay game={game} postMissplay={databaseActions.postMissplay}/>
+        <SaveMissplay game={game} postGame={databaseActions.postGame}/>
+        <button onClick={handleDelete}> Delete Game</button> 
     </>
     )
 
