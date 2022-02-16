@@ -23,6 +23,13 @@ const SaveMissplay = ({postMissplay, game}) => {
         
       }
       postMissplay(missPlayToUpdate); 
+
+      setDescription('')
+      setAdjustment('')
+      setMissplaySeverity('MINOR')
+      setMissplayType('TACTICAL')
+      setIsForced(false)
+
       // TODO: some input validation
     }
 

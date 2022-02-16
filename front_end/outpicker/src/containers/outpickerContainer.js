@@ -1,4 +1,3 @@
-import { save } from 'mongodb/lib/operations/collection_ops';
 import React, {useState, useEffect} from 'react'; 
 import About from '../components/about';
 import DBService from '../services/DBService';
@@ -11,6 +10,7 @@ const OutpickerContainer = () => {
 
     const [recentGames, setRecentGames] = useState([])
     const [savedGames, setSavedGames] = useState([])
+    
     const [savedMissplay, setSavedMissplay] = useState('')
     
     // Loads recent games and saved games from API and DB. 
@@ -27,9 +27,7 @@ const OutpickerContainer = () => {
         
     }, [])
 
-    
-
-
+  
 
     const databaseActions = {
 
@@ -42,14 +40,18 @@ const OutpickerContainer = () => {
 
         postMissplay(missplay){
             DBService.saveMissplay(missplay)
-            .then(missPlay => setSavedMissplay(missPlay))
-            // .then(() => {
-            // const copyOfSavedGames = savedGames
-            // const indexToUpdate = copyOfSavedGames.findIndex(game => game.kills === savedMissplay.game.id)
-            // copyOfSavedGames[indexToUpdate].missPlays.push(savedMissplay)
-            // setSavedGames(copyOfSavedGames)
-            //  })
-            // set missplay is called async so savedMissplay is not valid first time round. 
+            .then(missPlay =>{return savedGames.findIndex(game => game.id === missPlay.game.id)} )
+            .then((indexToUpdate) => {
+                console.log("INDEX TO UPDATE")
+                console.log(indexToUpdate)
+                const copyOfSavedGames = savedGames
+                console.log("copy of saved games 1 ")
+                console.log(copyOfSavedGames)
+                copyOfSavedGames[indexToUpdate].missPlays.push(savedMissplay)
+                console.log("copy of saved games 2")
+                console.log(copyOfSavedGames)
+                setSavedGames(copyOfSavedGames)
+            })
         },
 
         deleteGame(game){
@@ -73,6 +75,7 @@ const OutpickerContainer = () => {
         <About/>
         {!recentGames ? null : <GamesContainer games={recentGames} databaseActions={databaseActions}/>} 
         {!savedGames ? null : <GamesContainer games={savedGames} databaseActions={databaseActions} />}
+        <p>this part works (outpicker container)</p>
     </>
     )
 }
