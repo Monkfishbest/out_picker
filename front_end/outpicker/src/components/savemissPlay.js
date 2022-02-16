@@ -2,7 +2,7 @@ import React, {useState}  from 'react'
 
 const SaveMissplay = ({postMissplay, game}) => {
 
-  const [gameId] = useState(game.id)
+  const [gameID] = useState(game.id)
   const [description, setDescription] = useState('')
   const [adjustment, setAdjustment] = useState('')
   const [missplayType, setMissplayType] = useState('TACTICAL')
@@ -19,7 +19,7 @@ const SaveMissplay = ({postMissplay, game}) => {
           "description": description,
           "adjustment": adjustment,
           "forced": isForced,
-          "game" : { "id" : game.id}
+          "game" : { "id" : gameID}
         
       }
       postMissplay(missPlayToUpdate); 

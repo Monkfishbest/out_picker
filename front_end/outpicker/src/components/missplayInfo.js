@@ -14,7 +14,7 @@ const MissplayInfo = ({game, databaseActions}) => {
         <ul>
             {game.missPlays? game.missPlays.map(missplay => <MissPlayItem missplay={missplay}/>) : null}
         </ul>
-        <SaveMissplay game={game} postGame={databaseActions.postGame}/>
+        <SaveMissplay game={game} postMissplay={databaseActions.postMissplay}/>
         <button onClick={handleDelete}> Delete Game</button> 
     </>
     )

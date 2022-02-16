@@ -35,8 +35,16 @@ const DBService = {
                 'Content-Type':'application/json'
             }
         })
-    }
+    },
 
+    deleteMissplay(id){
+        return fetch(`http://localhost:8080/missplays/${id}`, {
+            method: 'DELETE',
+            headers:{
+                'Content-Type':'application/json'
+            }
+        })
+    }
 }
 
 
