@@ -40,19 +40,26 @@ const OutpickerContainer = () => {
 
         postMissplay(missplay){
             DBService.saveMissplay(missplay)
-            .then(missPlay =>{return savedGames.findIndex(game => game.id === missPlay.game.id)} )
-            .then((indexToUpdate) => {
-                console.log("INDEX TO UPDATE")
-                console.log(indexToUpdate)
+            .then(missPlay =>  {
+                console.log("missplay")
+                console.log(missPlay)
+                const indexToUpdate = savedGames.findIndex(game => game.id === missPlay.game.id)
                 const copyOfSavedGames = savedGames
-                console.log("copy of saved games 1 ")
+                console.log("copy of saved games before push")
                 console.log(copyOfSavedGames)
-                copyOfSavedGames[indexToUpdate].missPlays.push(savedMissplay)
-                console.log("copy of saved games 2")
+                copyOfSavedGames[indexToUpdate].missPlays.push(missPlay)
+                console.log("copy of saved games after push")
+                // Does seem to push the missplay to the end of the missplays array 
                 console.log(copyOfSavedGames)
-                setSavedGames(copyOfSavedGames)
+                return copyOfSavedGames
             })
+            .then(copyOfSavedGames => setSavedGames(copyOfSavedGames))
         },
+
+        editMissPlay(){
+
+        },
+    
 
         deleteGame(game){
             DBService.deleteGame(game.id)            
@@ -86,3 +93,19 @@ export default OutpickerContainer;
 
 
 
+// postMissplay(missplay){
+//     DBService.saveMissplay(missplay)
+//     .then(missPlay =>{
+//         console.log("missplay")
+//         console.log(missPlay)
+//         const indexToUpdate = savedGames.findIndex(game => game.id === missPlay.game.id)
+//         const copyOfSavedGames = savedGames
+//         console.log("copy of saved games before push")
+//         console.log(copyOfSavedGames)
+//         copyOfSavedGames[indexToUpdate].missPlays.push(missPlay)
+//         console.log("copy of saved games after push")
+//         console.log(copyOfSavedGames)
+//         return copyOfSavedGames
+//     })
+//     .then((copyOfSavedGames) => {setSavedGames(copyOfSavedGames) })
+// },
