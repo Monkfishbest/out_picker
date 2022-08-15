@@ -14,7 +14,7 @@ const OutpickerContainer = () => {
     const [savedMissplay, setSavedMissplay] = useState('')
     
     // Loads recent games and saved games from API and DB. 
-    useEffect( () => {
+    useEffect(() => {
 
         try {
             OpenDotaAPIGamesService.getRecentMatches()     
@@ -41,14 +41,9 @@ const OutpickerContainer = () => {
         postMissplay(missplay){
             DBService.saveMissplay(missplay)
             .then(missPlay =>  {
-                console.log("missplay")
-                console.log(missPlay)
                 const indexToUpdate = savedGames.findIndex(game => game.id === missPlay.game.id)
                 const copyOfSavedGames = savedGames
-                console.log("copy of saved games before push")
-                console.log(copyOfSavedGames)
                 copyOfSavedGames[indexToUpdate].missPlays.push(missPlay)
-                console.log("copy of saved games after push")
                 // Does seem to push the missplay to the end of the missplays array 
                 console.log(copyOfSavedGames)
                 return copyOfSavedGames

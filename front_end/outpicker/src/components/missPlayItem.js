@@ -1,10 +1,10 @@
 import React from 'react'; 
 
 
-const MissPlayItem = ({missplay}) => {
+const MissPlayItem = ({missplay, id}) => {
 
     return <>
-        <li key={missplay.id}>
+        <li key={id}>
             <p> Type: {missplay.missPlayType} </p>
             <p> Severtiy: {missplay.missPlaySeverity}</p>
             <p> Description: {missplay.description} </p>

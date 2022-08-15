@@ -21,6 +21,3 @@ const GameListItem = ({game, databaseActions}) => {
 };
 
 export default GameListItem;
-
-// game.missPlays.map((missplay) => 
-//              <ExtenedInfo missplay={missplay}>)

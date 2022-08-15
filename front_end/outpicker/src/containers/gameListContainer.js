@@ -7,7 +7,7 @@ const GameListContainer = ({games, databaseActions}) => {
     
     return(
         <ul>
-            {games.map(game => { return <GameListItem game={game} databaseActions={databaseActions}/> })}
+            {games.map(game => { return <GameListItem game={game} databaseActions={databaseActions} key={game.match_id}/> })}
         </ul>
     
     )    
