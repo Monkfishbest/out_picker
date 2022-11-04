@@ -29,7 +29,7 @@ public class DataLoader implements ApplicationRunner {
         gameRepository.deleteAll();
         missplayRepository.deleteAll();
 
-        Game testGame = new Game(6368118105L, 12,12,true,12,12,12 );
+        Game testGame = new Game(6368118105L, 12,12,true,12,12,12, null );
         gameRepository.save(testGame);
 
         MissPlay missPlay = new MissPlay(MissPlayType.MENTAL, MissPlaySeverity.MAJOR, "Lost patience and went hunting for kills, got picked off", "Keep a good routuine of not rage requeing, possbiliy take small sessions of mindfullness practice", false, testGame);

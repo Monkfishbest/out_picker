@@ -68,11 +68,12 @@ public class Game {
 
     @JsonIgnoreProperties({"game"})
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
+//     cascade = CascadeType.ALL ???? mby add ? ??
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<MissPlay> missPlays;
 
 
-    public Game(long match_id, int hero_id, int player_slot, boolean radiant_win, int kills, int deaths, int duration) {
+    public Game(long match_id, int hero_id, int player_slot, boolean radiant_win, int kills, int deaths, int duration, ArrayList<MissPlay> inputMissPlays ) {
         this.match_id = match_id;
         this.hero_id = hero_id;
         this.player_slot = player_slot;
@@ -80,7 +81,11 @@ public class Game {
         this.kills = kills;
         this.deaths = deaths;
         this.duration = duration;
-        this.missPlays = new ArrayList<>();
+        if (inputMissPlays == null) {
+            this.missPlays = new ArrayList<>();
+        } else {
+            this.missPlays = inputMissPlays;
+        }
     }
 
     public int getDuration() {
