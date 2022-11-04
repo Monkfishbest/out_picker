@@ -26,6 +26,8 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
+        gameRepository.deleteAll();
+        missplayRepository.deleteAll();
 
         Game testGame = new Game(6368118105L, 12,12,true,12,12,12 );
         gameRepository.save(testGame);

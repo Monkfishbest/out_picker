@@ -1,17 +1,33 @@
 import React, {useState, useEffect} from 'react'; 
-import About from '../components/about';
-import DBService from '../services/DBService';
+import styled from 'styled-components';
 
-import OpenDotaAPIGamesService from '../services/OpenDotaAPIService';
+import About from '../components/about';
+import Header from '../components/header';
 import GamesContainer from './gamesContainer';
+import DBService from '../services/DBService';
+import OpenDotaAPIGamesService from '../services/OpenDotaAPIService';
+
+
+const VeiwButton = styled.button`
+    /* sets background colour */
+    background-color: #FC6471;
+    /* sets text clour */
+    color: #F1D302;
+    padding: 5px 10px 5px 10px; 
+    font-size: 16px;
+    border-radius: 5px 5px 5px 5px;
+    margin: 5px 10px;
+    height: 60px;
+`
+
 
 
 const OutpickerContainer = () => {
 
-    const [recentGames, setRecentGames] = useState([])
-    const [savedGames, setSavedGames] = useState([])
+    const [recentGames, setRecentGames] = useState(null)
+    const [savedGames, setSavedGames] = useState(null)
+    const [showVeiw, setShowVeiw] = useState("home")
     
-    const [savedMissplay, setSavedMissplay] = useState('')
     
     // Loads recent games and saved games from API and DB. 
     useEffect(() => {
@@ -27,7 +43,7 @@ const OutpickerContainer = () => {
         
     }, [])
 
-  
+
 
     const databaseActions = {
 
@@ -42,19 +58,20 @@ const OutpickerContainer = () => {
             DBService.saveMissplay(missplay)
             .then(missPlay =>  {
                 const indexToUpdate = savedGames.findIndex(game => game.id === missPlay.game.id)
-                const copyOfSavedGames = savedGames
+                const copyOfSavedGames = [... savedGames]
                 copyOfSavedGames[indexToUpdate].missPlays.push(missPlay)
-                // Does seem to push the missplay to the end of the missplays array 
-                console.log(copyOfSavedGames)
                 return copyOfSavedGames
             })
             .then(copyOfSavedGames => setSavedGames(copyOfSavedGames))
         },
 
-        editMissPlay(){
-
+        isSavedAlready(gameToBeSaved){
+            const isSaved = savedGames.some((game) => {
+                return game.match_id === gameToBeSaved.match_id
+            })
+            return isSaved
         },
-    
+
 
         deleteGame(game){
             DBService.deleteGame(game.id)            
@@ -70,37 +87,31 @@ const OutpickerContainer = () => {
         }
     }
 
+    // based of 'showVeiw' peice of state will determain what page will displayed to the user, buttons allow changing of this particular bit of state, this function simply handles each. 
+    const viewRenderer = (view) => {
+        if(view === "home"){
+            return <About setShowVeiw={setShowVeiw} VeiwButton={VeiwButton}/>
+        } else if (view === "recent"){
+            return <GamesContainer games={recentGames} databaseActions={databaseActions} />
+        } else if (view === "saved") {
+            return <GamesContainer games={savedGames} databaseActions={databaseActions} />
+        } else {
+            return null
+        }
+    } 
+
 
 
     return( 
-    <>
-        <About/>
-        {!recentGames ? null : <GamesContainer games={recentGames} databaseActions={databaseActions}/>} 
-        {!savedGames ? null : <GamesContainer games={savedGames} databaseActions={databaseActions} />}
-        <p>this part works (outpicker container)</p>
+    <> 
+        <Header setShowVeiw={setShowVeiw} VeiwButton={VeiwButton} showVeiw={showVeiw}></Header>
+        {recentGames && savedGames ? viewRenderer(showVeiw) : <p> LOADING PLS WAIT </p>}
     </>
     )
 }
 
-// condition ? expr_if_true : expr_if_false
 
 export default OutpickerContainer; 
 
 
 
-// postMissplay(missplay){
-//     DBService.saveMissplay(missplay)
-//     .then(missPlay =>{
-//         console.log("missplay")
-//         console.log(missPlay)
-//         const indexToUpdate = savedGames.findIndex(game => game.id === missPlay.game.id)
-//         const copyOfSavedGames = savedGames
-//         console.log("copy of saved games before push")
-//         console.log(copyOfSavedGames)
-//         copyOfSavedGames[indexToUpdate].missPlays.push(missPlay)
-//         console.log("copy of saved games after push")
-//         console.log(copyOfSavedGames)
-//         return copyOfSavedGames
-//     })
-//     .then((copyOfSavedGames) => {setSavedGames(copyOfSavedGames) })
-// },

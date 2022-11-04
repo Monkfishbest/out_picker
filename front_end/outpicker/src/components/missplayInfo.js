@@ -22,6 +22,6 @@ const MissplayInfo = ({game, databaseActions}) => {
 
 }
 
-// should give some button to make missplays condtionally render. 
+// TODO: should give some button to make missplays condtionally render. 
 export default MissplayInfo; 
 

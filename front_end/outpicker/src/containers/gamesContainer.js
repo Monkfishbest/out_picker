@@ -3,14 +3,17 @@ import GameListContainer from './gameListContainer';
 
 const GamesContainer = ({games, databaseActions}) => {    
 
-    return <>
-    <p>
-            this is the games container 
-    </p>
+    
+    
+
+    return (
+    <>
         <GameListContainer games={games} databaseActions={databaseActions} />
     </>
+    )
 
 }
-// Note that we should add some more content to this page. 
 
 export default GamesContainer; 
+
+// TODO: this looks like a redudent component. Could most likey remove this. 

@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
+import './styles/default.css'
 import OutpickerContainer from './containers/outpickerContainer';
 
 function App() {

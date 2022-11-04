@@ -54,7 +54,6 @@ const SaveMissplay = ({postMissplay, game}) => {
     setIsForced(!isForced)
   }
 
-
   // Is there a dryer way of doing the above? I don't think so? I guess it's not really repeating the same code just repeating the function signatures? 
 
   return (
@@ -111,9 +110,3 @@ const SaveMissplay = ({postMissplay, game}) => {
 
 export default SaveMissplay
 
-// "id": 1,
-// 				"missPlayType": "MENTAL",
-// 				"missPlaySeverity": "MAJOR",
-// 				"description": "Lost patience and went hunting for kills, got picked off",
-// 				"adjustment": "Keep a good routuine of not rage requeing, possbiliy take small sessions of mindfullness practice",
-// 				"forced": false
