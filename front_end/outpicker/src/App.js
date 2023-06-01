@@ -5,7 +5,6 @@ function App() {
   return (
     <>
       <OutpickerContainer/>
-      <p> this part works (app)</p>
     </>
   );
 }
